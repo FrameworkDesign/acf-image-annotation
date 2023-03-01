@@ -203,6 +203,9 @@ export default {
       this.width = fieldData.width;
       this.annotations = fieldData.annotations;
       this.id = fieldData.imageId;
+
+      this.hasModalPopups = fieldData.hasModalPopups;
+      this.hasRegions = fieldData.hasRegions;
     }
   },
   data() {
