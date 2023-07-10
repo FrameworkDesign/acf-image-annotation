@@ -173,9 +173,10 @@ export default {
 
       // when an image is selected, run a callback
       this.mediaFrameLogo.on("select", () => {
-
-        let attachments = this.reactiveJson(this.mediaFrameLogo.state().get("selection"))
-        console.log('openLogoMediaFrame', attachments)
+        let attachments = this.reactiveJson(
+          this.mediaFrameLogo.state().get("selection")
+        );
+        console.log("openLogoMediaFrame", attachments);
 
         let attachment = this.reactiveJson(
           this.mediaFrameLogo.state().get("selection").first()
@@ -194,9 +195,10 @@ export default {
 
       // when an image is selected, run a callback
       this.mediaFrameBg.on("select", () => {
-
-        let attachments = this.reactiveJson(this.mediaFrameBg.state().get("selection"))
-        console.log('openBackgroundImageMediaFrame', attachments)
+        let attachments = this.reactiveJson(
+          this.mediaFrameBg.state().get("selection")
+        );
+        console.log("openBackgroundImageMediaFrame", attachments);
 
         let attachment = this.reactiveJson(
           this.mediaFrameBg.state().get("selection").first()
@@ -234,8 +236,8 @@ export default {
     openMediaFrameBgImage() {
       if (this.mediaFrameBg) {
         this.mediaFrameBg.uploader.uploader.param(
-            "post_id",
-            parseInt(this.postId)
+          "post_id",
+          parseInt(this.postId)
         );
         // open frame
         this.mediaFrameBg.open();

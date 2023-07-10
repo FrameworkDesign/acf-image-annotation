@@ -1,15 +1,17 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if (!defined('ABSPATH')) exit;
 
-class class_acf_field_image_annotation extends acf_field {
+class class_acf_field_image_annotation extends acf_field
+{
 
 	/**
 	 * Set name / label needed for actions / filters
 	 *
 	 * @param $settings
 	 */
-	public function __construct( $settings ) {
+	public function __construct($settings)
+	{
 
 		/*
 		*  name (string) Single word, no spaces. Underscores allowed
@@ -44,10 +46,11 @@ class class_acf_field_image_annotation extends acf_field {
 	 *
 	 * @param $field
 	 */
-	public function render_field_settings( $field ) {
+	public function render_field_settings($field)
+	{
 
 		// return format
-		acf_render_field_setting( $field, [
+		acf_render_field_setting($field, [
 			'label'        =>  __('Return Value', 'acf-annotation'),
 			'instructions' =>  __('Specify the returned value on front end', 'acf-annotation'),
 			'type'         => 'radio',
@@ -66,16 +69,20 @@ class class_acf_field_image_annotation extends acf_field {
 	 *
 	 * @param $field
 	 */
-	public function render_field( $field ) {
+	public function render_field($field)
+	{
 
 		global $post;
 
-		if ( !empty($field['value']) ) {
-			$value = maybe_unserialize($field['value']);
-			echo "<div id='". esc_attr($field['key']) ."' class='acf-image-annotation-field'><image-annotation post-id='". $post->ID ."' field-name='". esc_attr( $field['name'] ) . "' field-key='". $field['key'] . "' field-data='". $value ."'></image-annotation></div>";
-		} else {
-			echo '<div id="'. esc_attr($field['key']) .'" class="acf-image-annotation-field"><image-annotation post-id="' . $post->ID . '" field-name="' . esc_attr( $field['name'] ) . '" field-key="' . $field['key'] . '"></image-annotation></div>';
+		if (empty($field['value'])) {
+			echo '<div id="' . esc_attr($field['key']) . '" class="acf-image-annotation-field"><image-annotation post-id="' . $post->ID . '" field-name="' . esc_attr($field['name']) . '" field-key="' . $field['key'] . '"></image-annotation></div>';
+			return;
 		}
+
+
+
+		$value = htmlentities(json_encode($field['value'], JSON_HEX_QUOT), ENT_QUOTES);
+		echo "<div id='" . esc_attr($field['key']) . "' class='acf-image-annotation-field'><image-annotation post-id='" . $post->ID . "' field-name='" . esc_attr($field['name']) . "' field-key='" . $field['key'] . "' :field-data='" . $value . "'></image-annotation></div>";
 	}
 
 	/**
@@ -87,7 +94,8 @@ class class_acf_field_image_annotation extends acf_field {
 	 *
 	 * @return  $value
 	 */
-	public function load_value( $value, $post_id, $field ) {
+	public function load_value($value, $post_id, $field)
+	{
 		if (is_admin()) {
 			return $value;
 		}
@@ -105,9 +113,9 @@ class class_acf_field_image_annotation extends acf_field {
 	 *
 	 * @return mixed
 	 */
-	function update_value( $value, $post_id, $field ) {
-		$data = html_entity_decode(stripslashes ($value));
-		return maybe_serialize( $data );
+	function update_value($value, $post_id, $field)
+	{
+		return maybe_serialize($value);
 	}
 
 	/**
@@ -115,7 +123,8 @@ class class_acf_field_image_annotation extends acf_field {
 	 * Use this action to add CSS + JavaScript to assist your render_field() action.
 	 *
 	 */
-	public function input_admin_enqueue_scripts() {
+	public function input_admin_enqueue_scripts()
+	{
 
 		$url = $this->settings['url'];
 		$version = $this->settings['version'];
@@ -129,8 +138,8 @@ class class_acf_field_image_annotation extends acf_field {
 	{
 		$vars = func_get_args();
 		echo '<pre>';
-		array_map(function( $var ){
-			print_r( $var );
+		array_map(function ($var) {
+			print_r($var);
 			echo '<br>';
 		}, $vars);
 		echo '</pre>';
@@ -138,4 +147,4 @@ class class_acf_field_image_annotation extends acf_field {
 	}
 }
 
-new class_acf_field_image_annotation( $this->settings );
+new class_acf_field_image_annotation($this->settings);

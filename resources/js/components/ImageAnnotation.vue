@@ -46,19 +46,31 @@
         </div>
       </div>
     </div>
-    <br>
-    <br>
+    <br />
+    <br />
     <div class="acf-fields">
       <label>Options</label>
       <div class="acf-field">
         <label for="image_innotation_hidden_field_hasRegions">
-          <input v-model="hasRegions" class="hide-postbox-tog" name="image_innotation_hidden_field_hasRegions" type="checkbox" id="image_innotation_hidden_field_hasRegions">
+          <input
+            v-model="hasRegions"
+            class="hide-postbox-tog"
+            name="image_innotation_hidden_field_hasRegions"
+            type="checkbox"
+            id="image_innotation_hidden_field_hasRegions"
+          />
           Has regions? (regions on hover)
         </label>
       </div>
       <div class="acf-field">
         <label for="image_innotation_hidden_field_hasModalPopups">
-          <input v-model="hasModalPopups" class="hide-postbox-tog" name="image_innotation_hidden_field_hasModalPopups" type="checkbox" id="image_innotation_hidden_field_hasModalPopups">
+          <input
+            v-model="hasModalPopups"
+            class="hide-postbox-tog"
+            name="image_innotation_hidden_field_hasModalPopups"
+            type="checkbox"
+            id="image_innotation_hidden_field_hasModalPopups"
+          />
           Has Modal Popups? (clicking each item is a popup/modal)
         </label>
       </div>
@@ -67,9 +79,7 @@
     <div class="acf-field acf-field-repeater">
       <br />
       <div class="acf-label">
-        <label
-          >Annotations</label
-        >
+        <label>Annotations</label>
       </div>
       <div class="acf-input">
         <div class="acf-repeater -table" data-min="0" data-max="0">
