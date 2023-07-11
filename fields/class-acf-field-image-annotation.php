@@ -70,12 +70,13 @@ class class_acf_field_image_annotation extends acf_field {
 
 		global $post;
 
-		if ( !empty($field['value']) ) {
-			$value = maybe_unserialize($field['value']);
-			echo "<div id='". esc_attr($field['key']) ."' class='acf-image-annotation-field'><image-annotation post-id='". $post->ID ."' field-name='". esc_attr( $field['name'] ) . "' field-key='". $field['key'] . "' field-data='". $value ."'></image-annotation></div>";
-		} else {
-			echo '<div id="'. esc_attr($field['key']) .'" class="acf-image-annotation-field"><image-annotation post-id="' . $post->ID . '" field-name="' . esc_attr( $field['name'] ) . '" field-key="' . $field['key'] . '"></image-annotation></div>';
+		if (empty($field['value'])) {
+			echo '<div id="' . esc_attr($field['key']) . '" class="acf-image-annotation-field"><image-annotation post-id="' . $post->ID . '" field-name="' . esc_attr($field['name']) . '" field-key="' . $field['key'] . '"></image-annotation></div>';
+			return;
 		}
+
+		$value = htmlentities(json_encode($field['value'], JSON_HEX_QUOT), ENT_QUOTES);
+		echo "<div id='" . esc_attr($field['key']) . "' class='acf-image-annotation-field'><image-annotation post-id='" . $post->ID . "' field-name='" . esc_attr($field['name']) . "' field-key='" . $field['key'] . "' :field-data='" . $value . "'></image-annotation></div>";
 	}
 
 	/**
@@ -106,8 +107,7 @@ class class_acf_field_image_annotation extends acf_field {
 	 * @return mixed
 	 */
 	function update_value( $value, $post_id, $field ) {
-		$data = html_entity_decode(stripslashes ($value));
-		return maybe_serialize( $data );
+		return maybe_serialize($value);
 	}
 
 	/**
